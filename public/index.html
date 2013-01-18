@@ -1,241 +1,165 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Ruby on Rails: Welcome aboard</title>
-    <style type="text/css" media="screen">
+    <title>Dragon Go Client - An iPhone client for the Dragon Go Server</title>
+    <meta name="description" content="The Dragon Go Server
+      is a place where people around the world can get together
+      and play the game of Go. Dragon Go Client is the fast, simple
+      way to catch up on your games on the iPhone.">
+    <style>
+      h1, h2, h3, p, li {
+        font-family: Helvetica, Calibri, Arial, sans serif;
+      }
+
+      h1, h2, h3 {
+        color: #222;
+      }
+
       body {
-        margin: 0;
-        margin-bottom: 25px;
-        padding: 0;
-        background-color: #f0f0f0;
-        font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
-        font-size: 13px;
-        color: #333;
+        background-color: #eeeeee;
+        max-width: 740px;
+        margin: auto;
       }
 
-      h1 {
-        font-size: 28px;
-        color: #000;
+      img {
+        padding: 4px;
       }
 
-      a  {color: #03c}
-      a:hover {
-        background-color: #03c;
-        color: white;
-        text-decoration: none;
+      a {
+        color: #000099;
       }
 
-
-      #page {
-        background-color: #f0f0f0;
-        width: 750px;
-        margin: 0;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #content {
-        float: left;
-        background-color: white;
-        border: 3px solid #aaa;
-        border-top: none;
-        padding: 25px;
-        width: 500px;
-      }
-
-      #sidebar {
-        float: right;
-        width: 175px;
-      }
-
-      #footer {
-        clear: both;
-      }
-
-      #header, #about, #getting-started {
-        padding-left: 75px;
-        padding-right: 30px;
-      }
-
-
-      #header {
-        background-image: url("assets/rails.png");
-        background-repeat: no-repeat;
-        background-position: top left;
-        height: 64px;
-      }
-      #header h1, #header h2 {margin: 0}
-      #header h2 {
-        color: #888;
-        font-weight: normal;
-        font-size: 16px;
-      }
-
-
-      #about h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-      }
-
-      #about-content {
-        background-color: #ffd;
-        border: 1px solid #fc0;
-        margin-left: -55px;
-        margin-right: -10px;
-      }
-      #about-content table {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 11px;
-        border-collapse: collapse;
-      }
-      #about-content td {
-        padding: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
-      }
-      #about-content td.name  {color: #555}
-      #about-content td.value {color: #000}
-
-      #about-content ul {
-        padding: 0;
-        list-style-type: none;
-      }
-
-      #about-content.failure {
-        background-color: #fcc;
-        border: 1px solid #f00;
-      }
-      #about-content.failure p {
-        margin: 0;
-        padding: 10px;
-      }
-
-
-      #getting-started {
-        border-top: 1px solid #ccc;
-        margin-top: 25px;
-        padding-top: 15px;
-      }
-      #getting-started h1 {
-        margin: 0;
-        font-size: 20px;
-      }
-      #getting-started h2 {
-        margin: 0;
-        font-size: 14px;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 25px;
-      }
-      #getting-started ol {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #getting-started li {
-        font-size: 18px;
-        color: #888;
-        margin-bottom: 25px;
-      }
-      #getting-started li h2 {
-        margin: 0;
-        font-weight: normal;
-        font-size: 18px;
-        color: #333;
-      }
-      #getting-started li p {
-        color: #555;
-        font-size: 13px;
-      }
-
-
-      #sidebar ul {
-        margin-left: 0;
-        padding-left: 0;
-      }
-      #sidebar ul h3 {
-        margin-top: 25px;
-        font-size: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      #sidebar li {
-        list-style-type: none;
-      }
-      #sidebar ul.links li {
-        margin-bottom: 5px;
-      }
-
-      .filename {
-        font-style: italic;
-      }
     </style>
     <script type="text/javascript">
-      function about() {
-        info = document.getElementById('about-content');
-        if (window.XMLHttpRequest)
-          { xhr = new XMLHttpRequest(); }
-        else
-          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-        xhr.open("GET","rails/info/properties",false);
-        xhr.send("");
-        info.innerHTML = xhr.responseText;
-        info.style.display = 'block'
-      }
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-3643548-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
     </script>
   </head>
+
   <body>
-    <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-              <li><a href="http://api.rubyonrails.org/">Rails API</a></li>
-              <li><a href="http://www.ruby-doc.org/core/">Ruby core</a></li>
-              <li><a href="http://www.ruby-doc.org/stdlib/">Ruby standard library</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <h1>Dragon Go Client</h1>
+    <p>Dragon Go Client is the easiest way to play Go on
+      the Dragon Go Server from your iPhone!</p>
 
-      <div id="content">
-        <div id="header">
-          <h1>Welcome aboard</h1>
-          <h2>You&rsquo;re riding Ruby on Rails!</h2>
-        </div>
+    <h2><a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=384372078&mt=8">Download Dragon Go Client on iTunes</a></h2>
 
-        <div id="about">
-          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
-          <div id="about-content" style="display: none"></div>
-        </div>
+    <p>The <a href="http://www.dragongoserver.net">Dragon Go Server</a>
+      is a place where people around the world can get together
+      and play the game of Go. Dragon Go Client is the fast, simple
+      way to catch up on your games on the iPhone.</p>
 
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get rolling:</h2>
+    <h2>Features</h2>
 
-          <ol>
-            <li>
-              <h2>Use <code>rails generate</code> to create your models and controllers</h2>
-              <p>To see all available options, run it without parameters.</p>
-            </li>
+    <ul>
+      <li>See the games that are waiting for your move</li>
+      <li>Tap-to-zoom makes it simple to play the right move, every time</li>
+      <li>Supports the entire game flow, from placing handicap stones to scoring</li>
+      <li>Read, write, and respond to messages from opponents all over the world</li>
+      <li>Post new games that Dragon Go Server users can join</li>
+    </ul>
 
-            <li>
-              <h2>Set up a default route and remove <span class="filename">public/index.html</span></h2>
-              <p>Routes are set up in <span class="filename">config/routes.rb</span>.</p>
-            </li>
+    <h2>Screenshots</h2>
 
-            <li>
-              <h2>Create your database</h2>
-              <p>Run <code>rake db:create</code> to create your database. If you're not using SQLite (the default), edit <span class="filename">config/database.yml</span> with your username and password.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
+    <p>
+      <img src="dgs1.png">
+      <img src="dgs2.png">
+    </p>
+    <p>
+      <img src="dgs3.png">
+      <img src="dgs4.png">
+    </p>
 
-      <div id="footer">&nbsp;</div>
-    </div>
+    <h2><a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=384372078&mt=8">Download Dragon Go Client</a></h2>
+
+    <h2>About Me</h2>
+    <p>My name is Justin Weiss, and I'm a software developer from Seattle. I currently work at <a href="http://www.avvo.com">Avvo</a>, which you should definitely check out if you're trying to find a doctor or a lawyer, or need legal or medical advice.</p>
+
+    <h2>Help Out</h2>
+    <p>Dragon Go Client is open-source and released under the BSD License. The <a href="https://github.com/justinweiss/dragongoclient">source is available on GitHub</a>, and I'm available by email or messaging if you have any questions.</p>
+
+    <h2>Questions, Comments?</h2>
+    <p>If you have any questions, comments, or suggestions, don't hesitate to contact me on Twitter (<a href="http://twitter.com/justinweiss">@justinweiss</a>) or via <a href="mailto:justin@uberweiss.org">email</a>.
+
+    <h2>Licenses</h2>
+
+
+<p>This app depends on the following projects, whose 
+authors are all awesome and amazing:</p>
+
+<p><a href="http://allseeing-i.com/ASIHTTPRequest/">ASIHttpRequest</a></p>
+<pre><code>
+* Copyright (c) 2007-2010, All-Seeing Interactive
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*     * Redistributions of source code must retain the above copyright
+*       notice, this list of conditions and the following disclaimer.
+*     * Redistributions in binary form must reproduce the above copyright
+*       notice, this list of conditions and the following disclaimer in the
+*       documentation and/or other materials provided with the distribution.
+*     * Neither the name of the All-Seeing Interactive nor the
+*       names of its contributors may be used to endorse or promote products
+*       derived from this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY All-Seeing Interactive ''AS IS'' AND ANY
+* EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL All-Seeing Interactive BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+A different license may apply to other software included in this package, 
+including GHUnit and Andrew Donoho's Reachability class. Please consult their 
+respective headers for the terms of their individual licenses.
+  </code></pre>
+
+    <p><a href="http://code.google.com/p/touchcode/wiki/TouchXML">TouchXML</a>
+
+<pre><code> The following terms and conditions apply strictly to the
+Touch XML Library, available through the MIT Open Source Initiative.
+
+The MIT License
+
+TouchXML Library
+Copyright (c) 2009 Jonathan Wight
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  </code></pre>
+
+    <p><a href="http://fuego.sourceforge.net/">Fuego</a></p>
+
+    <p>Fuego is licensed under the <a href="http://www.gnu.org/copyleft/lgpl.html">LGPL</a>.</p>
+
+    <p>And, of course, the <a href="http://dragongoserver.net">Dragon Go Server</a>, which makes all of this possible.</p>
   </body>
 </html>
