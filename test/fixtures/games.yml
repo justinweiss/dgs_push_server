@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dgs_game_id: 1
+  opponent_name: MyString
+  player: 1
+
+two:
+  dgs_game_id: 2
+  opponent_name: MyString
+  player: 1

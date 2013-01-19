@@ -11,3 +11,7 @@ end
 group :development do
   gem 'debugger'
 end
+
+group :test do
+  gem 'minitest'
+end

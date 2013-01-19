@@ -1,0 +1,17 @@
+dgs:
+  id: 1
+  name: net.uberweiss.DGS
+  environment: test
+  connections: 1
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+  type: Rapns::Apns::App
+
+unused_app_id:
+  id: 2
+  name: net.uberweiss.Unused
+  environment: test
+  connections: 1
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+  type: Rapns::Apns::App

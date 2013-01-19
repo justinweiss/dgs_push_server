@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+justins_main_device:
+  player: justin
+  rapns_app_id: 1 # dgs app id
+  device_token: main_device_token

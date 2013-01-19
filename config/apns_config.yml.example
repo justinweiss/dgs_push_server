@@ -1,0 +1,15 @@
+development:
+  - name: App Name
+    certificate: development.pem
+    password: password
+    connections: 1
+staging:
+  - name: App Name
+    certificate: staging.pem
+    password: password
+    connections: 1
+production:
+  - name: App Name
+    certificate: production.pem
+    password: password
+    connections: 1
