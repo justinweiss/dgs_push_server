@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ileitch/rapns.git
+  revision: 514b55790de05a93cdd983ff608c5048290b52e0
+  specs:
+    rapns (3.0.1)
+      multi_json (~> 1.0)
+      net-http-persistent
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -45,6 +53,8 @@ GEM
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.7)
     erubis (2.7.0)
+    foreman (0.61.0)
+      thor (>= 0.13.6)
     highline (1.6.15)
     hike (1.2.1)
     i18n (0.6.1)
@@ -89,9 +99,6 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
-    rapns (3.0.1)
-      multi_json (~> 1.0)
-      net-http-persistent
     rdoc (3.12)
       json (~> 1.4)
     sprockets (2.2.2)
@@ -100,6 +107,10 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
+    strong_parameters (0.1.6)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     thor (0.16.0)
     tilt (1.3.3)
     treetop (1.4.12)
@@ -113,7 +124,9 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   debugger
+  foreman
   minitest
   rails (= 3.2.11)
-  rapns
+  rapns!
   sqlite3
+  strong_parameters

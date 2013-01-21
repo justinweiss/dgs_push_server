@@ -18,3 +18,4 @@
 /config/database.yml
 /config/apns_config.yml
 /config/initializers/secret_token.rb
+/config/*.pem

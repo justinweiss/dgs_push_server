@@ -1,5 +1,5 @@
 class Player < ActiveRecord::Base
-  attr_accessible :dgs_user_id
+  include ActiveModel::ForbiddenAttributesProtection
   has_many :games, dependent: :destroy, inverse_of: :player
   has_many :apns_devices, dependent: :destroy, inverse_of: :player
 

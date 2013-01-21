@@ -9,19 +9,13 @@ class ApnsDevicesController < ApplicationController
 
   def create
     @device.player = @player
-    @device.rapns_app = @app
     @device.save!
     respond_with @player, @device
   end
 
   def update
     @device.player = @player
-    @device.rapns_app = @app
     @device.update_attributes(device_params)
-
-    # Always update the device's timestamps, so we can see if they're
-    # still being used.
-    @device.touch if @device.previous_changes.empty?
 
     # Since we could have changed the id here, we can't rely on the
     # default respond_with, since we need to return the updated object
@@ -43,12 +37,12 @@ class ApnsDevicesController < ApplicationController
   end
 
   def load_device_by_token
-    @device = ApnsDevice.where(device_token: device_params[:device_token]).first_or_initialize
+    @device = ApnsDevice.find_by_encoded_device_token(device_params[:encoded_device_token]).first_or_initialize(rapns_app: @app)
   end
 
   def load_device_to_update
-    @device = ApnsDevice.find_by_device_token(device_params[:device_token]) ||
-      ApnsDevice.scoped_by_id(params[:id]).first_or_initialize
+    @device = ApnsDevice.find_by_encoded_device_token(device_params[:encoded_device_token]).first ||
+      ApnsDevice.where(id: params[:id]).first_or_initialize(rapns_app: @app)
   end
 
   def load_app
@@ -57,10 +51,18 @@ class ApnsDevicesController < ApplicationController
   end
 
   def verify_app_scope
+    # We're doing this here because of a particular requirement -- if
+    # we *find* the token but it belongs to a different app, that's an
+    # error. If we *don't* find the token, we automatically create one
+    # under the right app.
     raise ActiveRecord::RecordNotFound if @device.rapns_app && @device.rapns_app != @app
   end
 
   def device_params
-    params.fetch(:device) { {} }.slice(:device_token)
+    if params[:device]
+      params[:device].permit(:encoded_device_token)
+    else
+      {}
+    end
   end
 end

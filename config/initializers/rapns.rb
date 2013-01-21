@@ -31,8 +31,7 @@
   config.on_apns_feedback do |feedback|
     device = ApnsDevices.find_by_device_token(feedback.device_token)
     if device
-      device.active = false
-      device.save!
+      device.destroy!
     end
   end
 
