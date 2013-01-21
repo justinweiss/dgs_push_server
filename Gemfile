@@ -4,6 +4,7 @@ gem 'rails', '3.2.11'
 gem 'sqlite3'
 gem 'rapns', :github => 'ileitch/rapns'
 gem 'strong_parameters'
+gem 'faraday'
 
 group :deploy do
   gem 'capistrano'

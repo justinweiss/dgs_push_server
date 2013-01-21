@@ -4,6 +4,15 @@ require 'rails/test_help'
 
 require 'minitest/mock'
 
+module JSONRequiredTest
+  # Force the format to JSON, otherwise we'll get all kinds of routing
+  # errors :-/
+  def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
+    parameters = {format: :json}.merge(parameters) if parameters
+    super(action, parameters, session, flash, http_method)
+  end
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #

@@ -1,5 +1,8 @@
 DgsPushServer::Application.routes.draw do
-  resources :players, :only => [] do
-    resources :apns_devices, :only => [:create, :update, :destroy], :path => "devices"
+  scope({format: true, constraints: {format: :json}}) do
+    resources :players, :only => [] do
+      resources :apns_devices, :only => [:create, :update, :destroy], :path => "devices"
+      resource :session, :only => [:create]
+    end
   end
 end

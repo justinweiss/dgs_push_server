@@ -17,7 +17,7 @@ class ApnsDeviceManagementTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_not_routed do
-      post '/players/1/devices', {device: {encoded_device_token: "ABC123"}}
+      post '/players/1/devices', {device: {encoded_device_token: "ABC123"}}, @headers
     end
   end
 

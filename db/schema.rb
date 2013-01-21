@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118062708) do
+ActiveRecord::Schema.define(:version => 20130121051414) do
 
   create_table "apns_devices", :force => true do |t|
     t.integer  "player_id",    :null => false
@@ -94,5 +94,15 @@ ActiveRecord::Schema.define(:version => 20130118062708) do
   end
 
   add_index "rapns_notifications", ["app_id", "delivered", "failed", "deliver_after"], :name => "index_rapns_notifications_multi"
+
+  create_table "sessions", :force => true do |t|
+    t.integer  "player_id"
+    t.string   "cookie"
+    t.datetime "expires_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["player_id"], :name => "index_sessions_on_player_id"
 
 end

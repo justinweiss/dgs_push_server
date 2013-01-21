@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ApnsDevicesControllerTest < ActionController::TestCase
+  include JSONRequiredTest
 
   setup do
     @app_id = "net.uberweiss.DGS"

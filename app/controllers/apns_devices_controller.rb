@@ -10,7 +10,7 @@ class ApnsDevicesController < ApplicationController
   def create
     @device.player = @player
     @device.save!
-    respond_with @player, @device
+    respond_with @player, @device, :location => nil
   end
 
   def update
@@ -27,7 +27,7 @@ class ApnsDevicesController < ApplicationController
 
   def destroy
     @device.destroy
-    respond_with @player, @device
+    respond_with @player, @device, :location => nil
   end
 
   private

@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+justins_session:
+  player: justin
+  cookie: "cookie_handle=justinweiss; cookie_sessioncode=95697EB5E7567CBB4629F5E7567CBBABAB0BF7426"
+  expires_at: 2013-01-20 21:14:14
