@@ -9,6 +9,8 @@ class Player < ActiveRecord::Base
 
   before_create :set_last_checked_at
 
+  scope :ready_for_fetching, lambda { where('last_checked_at < ?', 15.minutes.ago)}
+
   def to_param
     dgs_user_id
   end

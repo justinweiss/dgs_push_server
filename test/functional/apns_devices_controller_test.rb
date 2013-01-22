@@ -103,8 +103,8 @@ class ApnsDevicesControllerTest < ActionController::TestCase
 
     assert_difference "Player.count", 0 do
       assert_difference "ApnsDevice.count", 0 do
-        assert_difference "players(:user_without_tokens).apns_devices.count", 1 do
-          put :update, id: @main_device.id, player_id: players(:user_without_tokens).dgs_user_id, device: { encoded_device_token: @main_device.device_token }
+        assert_difference "players(:player_without_tokens).apns_devices.count", 1 do
+          put :update, id: @main_device.id, player_id: players(:player_without_tokens).dgs_user_id, device: { encoded_device_token: @main_device.device_token }
         end
       end
     end

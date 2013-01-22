@@ -75,4 +75,10 @@ class PlayerTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "ready_for_fetching returns only players with games ready for fetching" do
+    player = Player.create!(:dgs_user_id => 1)
+    refute_includes Player.ready_for_fetching, player
+    assert_includes Player.ready_for_fetching, players(:justin)
+  end
 end

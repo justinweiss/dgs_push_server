@@ -6,6 +6,7 @@ gem 'rapns', :github => 'ileitch/rapns'
 gem 'strong_parameters'
 gem 'faraday'
 gem 'sidekiq'
+gem 'clockwork'
 
 group :deploy do
   gem 'capistrano'
@@ -19,4 +20,5 @@ end
 group :test do
   gem 'minitest'
   gem 'webmock'
+  gem 'mocha', :require => false
 end

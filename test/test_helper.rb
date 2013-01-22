@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 require 'minitest/mock'
 require 'webmock/minitest'
+require 'sidekiq/testing'
 WebMock.disable_net_connect!
 
 module JSONRequiredTest
