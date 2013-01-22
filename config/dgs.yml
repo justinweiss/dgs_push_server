@@ -1,0 +1,6 @@
+development:
+  host: http://www.dragongoserver.net
+staging:
+  host: http://www.dragongoserver.net
+production:
+  host: http://www.dragongoserver.net

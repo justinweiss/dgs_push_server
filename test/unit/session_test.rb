@@ -7,9 +7,14 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   test "A session can't be updated unless it's possible to make an actual request with the cookie" do
-
+    skip
   end
 
-  # only update the session data when the expires time is better than what we have
-  # only try to ping DGS when the session id changes
+  test "A session isn't updated unless it's better than the one we currently have" do
+    skip
+  end
+
+  test "only make a test request when the session id changes" do
+    skip
+  end
 end
