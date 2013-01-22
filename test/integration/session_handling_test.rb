@@ -7,10 +7,11 @@ class SessionHandlingTest < ActionDispatch::IntegrationTest
 
   test "Can handle a session being created with cookies" do
     @main_player.session.destroy if @main_player.session
-    assert_difference "Session.count", 1 do
-      post "/players/#{@main_player.dgs_user_id}/session.json", session_params
+    mock_dgs_with_new_session(game_csv(1), session_params[:session]) do
+      assert_difference "Session.count", 1 do
+        post "/players/#{@main_player.dgs_user_id}/session.json", session_params
+      end
     end
-
   end
 
   test "Can't hit non-json urls" do

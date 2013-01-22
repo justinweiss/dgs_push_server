@@ -1,3 +1,5 @@
+test:
+  host: http://localhost
 development:
   host: http://www.dragongoserver.net
 staging:

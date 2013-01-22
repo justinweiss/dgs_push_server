@@ -17,9 +17,12 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "Creating a session for a player works properly" do
     Session.where(player_id: @main_player.id).destroy_all
+    session_params = {cookie: "123456", expires_at: 10.minutes.from_now}
     assert_difference "Session.count", 1 do
-      post :create, player_id: @main_player, session: {cookie: "123456", expires_at: 10.minutes.from_now}
-      assert_response :success
+      mock_dgs_with_new_session game_csv(1), session_params do
+        post :create, player_id: @main_player, session: session_params
+        assert_response :success
+      end
     end
 
     assert @main_player.session, "Session should have been created"
@@ -31,7 +34,9 @@ class SessionsControllerTest < ActionController::TestCase
     old_session = @main_player.session
 
     assert_difference "Session.count", 0 do
-      post :create, player_id: @main_player, session: {cookie: "123456", expires_at: 10.minutes.from_now}
+      mock_dgs_with_response game_csv(1) do
+        post :create, player_id: @main_player, session: {cookie: "123456", expires_at: 10.minutes.from_now}
+      end
       assert_response :success
     end
 

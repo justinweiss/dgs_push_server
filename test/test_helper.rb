@@ -3,6 +3,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 require 'minitest/mock'
+require 'webmock/minitest'
+WebMock.disable_net_connect!
 
 module JSONRequiredTest
   # Force the format to JSON, otherwise we'll get all kinds of routing
@@ -48,5 +50,25 @@ class ActiveSupport::TestCase
       game_list_string << "G,#{game_id},'#{opponent_name}',B,'#{updated_at.strftime(last_move_date_format)}','J: 83d 14h (+ 1d * 10)',2,PLAY,62,0,0,'GO',0,'2007-05-27 15:00:00'\n"
     end
     game_list_string
+  end
+
+  # Mocks the DGS connection, responding with +response+. If response
+  # is callable, calls it and returns the return value of the callable.
+  def mock_dgs_with_response(response, session = players(:justin).session)
+    dgs = MiniTest::Mock.new
+    dgs.expect(:get, response, [session, "/quick_status.php?version=2"])
+    DGS.stub(:new, dgs) do
+      yield
+    end
+    dgs.verify
+  end
+
+  def mock_dgs_with_new_session(response, session_params)
+    new_session = Session.new(session_params)
+    Session.stub(:new, new_session) do
+      mock_dgs_with_response response, new_session do
+        yield
+      end
+    end
   end
 end

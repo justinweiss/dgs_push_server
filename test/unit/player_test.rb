@@ -66,7 +66,7 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "fetch_new_games! doesn't push anything if there aren't any new games" do
-    game_data = [{dgs_game_id: 1, updated_at: @main_player.games.first.updated_at}, {}]
+    game_data = [{dgs_game_id: 1, updated_at: @main_player.games.first.updated_at}]
     game_list = csv_for_game_data(game_data)
 
     assert_difference "Rapns::Apns::Notification.count", 0 do
@@ -74,16 +74,5 @@ class PlayerTest < ActiveSupport::TestCase
         @main_player.fetch_new_games!
       end
     end
-  end
-
-  private
-
-  def mock_dgs_with_response(games_csv, session = players(:justin).session)
-    dgs = MiniTest::Mock.new
-    dgs.expect(:get, games_csv, [session, "/quick_status.php?version=2"])
-    DGS.stub(:new, dgs) do
-      yield
-    end
-    dgs.verify
   end
 end
