@@ -7,7 +7,7 @@ gem 'strong_parameters'
 gem 'faraday'
 gem 'sidekiq'
 gem 'clockwork'
-gem 'puma'
+gem 'puma', '>= 2.0.0.b4'
 
 group :development do
   gem 'debugger'

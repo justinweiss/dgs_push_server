@@ -89,7 +89,7 @@ GEM
     multipart-post (1.1.5)
     net-http-persistent (2.8)
     polyglot (0.3.3)
-    puma (1.6.3)
+    puma (2.0.0.b4)
       rack (~> 1.2)
     rack (1.4.4)
     rack-cache (1.2)
@@ -166,7 +166,7 @@ DEPENDENCIES
   jquery-rails
   minitest
   mocha
-  puma
+  puma (>= 2.0.0.b4)
   rails (= 3.2.11)
   rapns!
   sass-rails (~> 3.2.3)
