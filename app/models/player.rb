@@ -18,7 +18,10 @@ class Player < ActiveRecord::Base
   # Makes a request to DGS, merges the games, and adds any needed
   # notifications to the notification list.
   def fetch_new_games!(session = self.session)
-    game_csv = DGS.new.get(session, '/quick_status.php?version=2')
+    game_csv = nil
+    DGS::ConnectionPool.with do |dgs|
+      game_csv = dgs.get(session, '/quick_status.php?version=2')
+    end
     new_games = Game.parse_from_csv(game_csv)
     added_games, removed_games, existing_games = Game.merge_games(self.games, new_games)
     self.games = existing_games + added_games

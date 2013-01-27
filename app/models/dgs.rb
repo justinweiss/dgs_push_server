@@ -17,6 +17,11 @@ class DGS
     end
   end
 
+  # Has to be defined after #initialize, because the connection pool
+  # is eagerly created and #new won't call our #initialize if it
+  # hasn't been defined yet..
+  ConnectionPool = ::ConnectionPool.new(:size => 3, :timeout => 10) { DGS.new }
+
   # Performs the DGS GET request at /path with parameters and returns
   # the response body. Mostly used as a building block for higher
   # level calls, and as a method that can be easily mocked in tests.
