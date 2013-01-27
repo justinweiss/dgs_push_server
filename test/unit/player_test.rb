@@ -81,4 +81,33 @@ class PlayerTest < ActiveSupport::TestCase
     refute_includes Player.ready_for_fetching, player
     assert_includes Player.ready_for_fetching, players(:justin)
   end
+
+  test "game messages are generated correctly for a single game" do
+    game_list = Game.parse_from_csv(csv_for_game_data([{:opponent_name => 'justin'}]))
+    assert_equal "justin is ready for you to move.", Player.new.send(:alert_message, game_list, [])
+  end
+
+  test "game messages are generated correctly for 3 new players" do
+    game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}, {:opponent_name => 'bill'}]
+    game_list = Game.parse_from_csv(csv_for_game_data(game_data))
+    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+  end
+
+  test "game messages are generated correctly for > 3 new games" do
+    game_list = Game.parse_from_csv(game_csv(4))
+    assert_equal "4 games are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+  end
+
+  test "game messages are generated correctly for games with duplicate opponents" do
+    game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}, {:opponent_name => 'bill'}, {:opponent_name => 'justin'}]
+    game_list = Game.parse_from_csv(csv_for_game_data(game_data))
+    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+  end
+
+  test "only added opponents are taken into account" do
+    game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}]
+    game_list = Game.parse_from_csv(csv_for_game_data(game_data))
+    assert_equal "justin and bob are ready for you to move.", Player.new.send(:alert_message, game_list, Game.parse_from_csv(game_csv(2)))
+  end
+
 end

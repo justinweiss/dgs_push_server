@@ -27,7 +27,7 @@ class DGS
       end
     end
     handle_errors(response)
-    body = response.body
+    body = response.body.encode('UTF-8', invalid: :replace, undef: :replace)
   end
 
   private

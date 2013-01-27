@@ -28,16 +28,25 @@ class Player < ActiveRecord::Base
 
   private
 
+  def alert_message(added_games, existing_games)
+    opponents = added_games.map(&:opponent_name).uniq
+    games = added_games
+    if opponents.length > 3
+      message = "#{games.length} games are ready for you to move."
+    else
+      message = "#{opponents.to_sentence} #{opponents.length == 1 ? 'is' : 'are'} ready for you to move."
+    end
+  end
+
   def create_notifications_for_games!(added_games, existing_games)
     return if added_games.empty?
-
-    count = (added_games + existing_games).length
+    games = added_games + existing_games
     self.apns_devices.each do |device|
       n = Rapns::Apns::Notification.new
       n.app = device.rapns_app
       n.device_token = device.device_token
-      n.alert = "You have #{count} #{"game".pluralize(count)} waiting"
-      n.badge = count
+      n.alert = alert_message(added_games, existing_games)
+      n.badge = games.length
       # Fail silently
       n.save
     end
