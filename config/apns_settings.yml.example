@@ -8,6 +8,7 @@ staging:
     certificate: staging.pem
     password: password
     connections: 1
+    environment: development
 production:
   - name: App Name
     certificate: production.pem

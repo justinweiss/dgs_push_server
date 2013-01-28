@@ -12,7 +12,7 @@ if apns_config
     app = Rapns::Apns::App.new
     app.name = app_config["name"]
     app.certificate = File.read(File.expand_path("config/#{app_config["certificate"]}", Rails.root))
-    app.environment = Rails.env.development? ? 'development' : 'production'
+    app.environment = app_config["environment"] || (Rails.env.development? ? 'development' : 'production')
     app.password = app_config["password"]
     app.connections = app_config["connections"]
     app.save!
