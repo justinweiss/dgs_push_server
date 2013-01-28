@@ -5,4 +5,6 @@ DgsPushServer::Application.routes.draw do
       resource :session, :only => [:create]
     end
   end
+
+  match '/test/fail' => 'test#fail'
 end

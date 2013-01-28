@@ -8,6 +8,7 @@ gem 'faraday'
 gem 'sidekiq'
 gem 'clockwork'
 gem 'puma', '>= 2.0.0.b4'
+gem 'exception_notification'
 
 group :development do
   gem 'debugger'
