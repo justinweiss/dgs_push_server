@@ -16,6 +16,8 @@
 
 # Ignore generated files
 /config/database.yml
-/config/apns_config.yml
+/config/apns_settings.yml
+/config/smtp_settings.yml
+/config/exception_notifier_settings.yml
 /config/initializers/secret_token.rb
 /config/*.pem

@@ -1,0 +1,5 @@
+production:
+  email_prefix: "[DGS Push Exception] "
+  sender_address: "\"DGS Push Server\" <dgs_push@example.com>"
+  exception_recipients:
+    - exceptions@example.com

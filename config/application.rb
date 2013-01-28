@@ -58,5 +58,17 @@ module DgsPushServer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    smtp_settings = YAML.load_file(File.expand_path("../smtp_settings.yml", __FILE__))[Rails.env]
+
+    if smtp_settings
+      config.action_mailer.smtp_settings = smtp_settings.symbolize_keys
+    end
+
+    exception_notifier_settings = YAML.load_file(File.expand_path("../exception_notifier_settings.yml", __FILE__))[Rails.env]
+
+    if exception_notifier_settings
+      config.middleware.use(ExceptionNotifier, exception_notifier_settings.symbolize_keys)
+    end
   end
 end
