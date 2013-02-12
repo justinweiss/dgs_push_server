@@ -9,10 +9,9 @@ require 'yaml'
 apns_config = YAML.load_file(File.expand_path('config/apns_settings.yml', Rails.root))[Rails.env]
 if apns_config
   apns_config.each do |app_config|
-    app = Rapns::Apns::App.new
-    app.name = app_config["name"]
+    environment = app_config["environment"] || (Rails.env.development? ? 'development' : 'production')
+    app = Rapns::Apns::App.where(:name => app_config['name'], :environment => environment).first_or_initialize
     app.certificate = File.read(File.expand_path("config/#{app_config["certificate"]}", Rails.root))
-    app.environment = app_config["environment"] || (Rails.env.development? ? 'development' : 'production')
     app.password = app_config["password"]
     app.connections = app_config["connections"]
     app.save!
