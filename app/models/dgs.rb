@@ -1,4 +1,5 @@
 class DGS
+
   class Exception < ::RuntimeError; end
   class NotLoggedInException < DGS::Exception; end
 
@@ -14,6 +15,7 @@ class DGS
     @connection = Faraday.new(:url => host) do |faraday|
       faraday.response :logger # log requests to STDOUT
       faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
+      faraday.use ParseDGSResponse
     end
   end
 
@@ -31,16 +33,10 @@ class DGS
         request.headers['Cookie'] = session.cookie
       end
     end
-    handle_errors(response)
-    body = response.body.encode('UTF-8', invalid: :replace, undef: :replace)
+    response.body
   end
 
   private
-
-  # Handle login errors, anything else DGS sends our way
-  def handle_errors(response)
-    raise DGS::NotLoggedInException, response.body if response.body.match("\\[#Error: unknown_user;")
-  end
 
   def request_path(path)
     File.join(base_path, path)

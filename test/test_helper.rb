@@ -58,8 +58,10 @@ class ActiveSupport::TestCase
   def mock_dgs_with_response(response, session = players(:justin).session)
     dgs = MiniTest::Mock.new
     dgs.expect(:get, response, [session, "/quick_status.php?version=2"])
-    DGS.stub(:new, dgs) do
-      yield
+    DGS::ConnectionPool.stub(:checkout, dgs) do
+      DGS::ConnectionPool.stub(:checkin, nil) do
+        yield
+      end
     end
     dgs.verify
   end
