@@ -30,10 +30,7 @@ Rapns.reflect do |on|
   # from the APNs that a notification has failed to be delivered.
   # Further notifications should not be sent to the device.
   on.apns_feedback do |feedback|
-    device = ApnsDevices.find_by_device_token(feedback.device_token)
-    if device
-      device.destroy!
-    end
+    ApnsDevice.where(device_token: feedback.device_token).destroy_all
   end
 
   # Called when a notification is queued internally for delivery.
