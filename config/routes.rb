@@ -7,4 +7,5 @@ DgsPushServer::Application.routes.draw do
   end
 
   match '/test/fail' => 'test#fail'
+  match '/test/succeed' => 'test#succeed'
 end
