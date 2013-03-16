@@ -7,3 +7,7 @@ justin:
 player_without_tokens:
   dgs_user_id: 1235
   last_checked_at: 2013-01-17 22:26:16
+
+player_without_games:
+  dgs_user_id: 1236
+  last_checked_at: 2013-01-17 22:26:16

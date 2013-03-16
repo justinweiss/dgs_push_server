@@ -1,11 +1,13 @@
 DgsPushServer::Application.routes.draw do
   scope({format: true, constraints: {format: :json}}) do
-    resources :players, :only => [] do
-      resources :apns_devices, :only => [:create, :update, :destroy], :path => "devices"
-      resource :session, :only => [:create]
+    resources :players, only: [] do
+      resources :apns_devices, only: [:create, :update, :destroy], path: "devices"
+      resource :session, only: [:create]
+
     end
+    put 'players/:player_id/games.:format' => 'games#update_all'
   end
 
-  match '/test/fail' => 'test#fail'
-  match '/test/succeed' => 'test#succeed'
+  get '/test/fail'
+  get '/test/succeed'
 end

@@ -22,7 +22,7 @@ class Player < ActiveRecord::Base
     DGS::ConnectionPool.with do |dgs|
       game_csv = dgs.get(session, '/quick_status.php?version=2')
     end
-    new_games = Game.parse_from_csv(game_csv)
+    new_games = GameCSVParser.new(game_csv).games
     added_games, removed_games, existing_games = Game.merge_games(self.games, new_games)
     self.games = existing_games + added_games
     create_notifications_for_games!(added_games, existing_games)
