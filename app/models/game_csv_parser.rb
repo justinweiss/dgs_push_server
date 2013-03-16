@@ -1,3 +1,5 @@
+require 'csv'
+
 class GameCSVParser
 
   def initialize(csv_string)
