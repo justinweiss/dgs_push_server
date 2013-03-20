@@ -24,6 +24,7 @@ class GamesControllerTest < ActionController::TestCase
     assert_equal 'Dave', Game.last.opponent_name
     assert_equal 3, Game.last.dgs_game_id
     assert_equal player.id, Game.last.player.id
+    assert_equal '2013-03-13 08:03:24', Game.last.created_at.strftime('%Y-%m-%d %H:%M:%S')
   end
 
   test "When we get a list of games, we should replace the existing games with our games" do
