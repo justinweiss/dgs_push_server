@@ -3,12 +3,13 @@ class GamesController < ApplicationController
   before_filter :load_player
 
   def update_all
-    @player.games = params[:games].map do |dgs_game_id, game_params|
+    games = params[:games].map do |dgs_game_id, game_params|
       attributes = game_params.merge(dgs_game_id: dgs_game_id, created_at: game_params[:updated_at])
       attributes.slice!(:dgs_game_id, :opponent_name, :created_at, :updated_at, :player)
       Game.new(attributes)
     end
 
+    @player.games = GameMerger.new(@player.games, games).current_games
     respond_with :nothing
   end
 
