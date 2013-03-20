@@ -84,30 +84,30 @@ class PlayerTest < ActiveSupport::TestCase
 
   test "game messages are generated correctly for a single game" do
     game_list = GameCSVParser.new(csv_for_game_data([{:opponent_name => 'justin'}])).games
-    assert_equal "justin is ready for you to move.", Player.new.send(:alert_message, game_list, [])
+    assert_equal "justin is ready for you to move.", Player.new.send(:alert_message, GameMerger.new([], game_list))
   end
 
   test "game messages are generated correctly for 3 new players" do
     game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}, {:opponent_name => 'bill'}]
     game_list = GameCSVParser.new(csv_for_game_data(game_data)).games
-    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, GameMerger.new([], game_list))
   end
 
   test "game messages are generated correctly for > 3 new games" do
     game_list = GameCSVParser.new(game_csv(4)).games
-    assert_equal "4 games are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+    assert_equal "4 games are ready for you to move.", Player.new.send(:alert_message, GameMerger.new([], game_list))
   end
 
   test "game messages are generated correctly for games with duplicate opponents" do
     game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}, {:opponent_name => 'bill'}, {:opponent_name => 'justin'}]
     game_list = GameCSVParser.new(csv_for_game_data(game_data)).games
-    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, game_list, [])
+    assert_equal "justin, bob, and bill are ready for you to move.", Player.new.send(:alert_message, GameMerger.new([], game_list))
   end
 
   test "only added opponents are taken into account" do
-    game_data = [{:opponent_name => 'justin'}, {:opponent_name => 'bob'}]
+    game_data = [{:dgs_game_id => 2000, :opponent_name => 'justin'}, {:dgs_game_id => 2001, :opponent_name => 'bob'}]
     game_list = GameCSVParser.new(csv_for_game_data(game_data)).games
-    assert_equal "justin and bob are ready for you to move.", Player.new.send(:alert_message, game_list, GameCSVParser.new(game_csv(2)).games)
-  end
 
+    assert_equal "justin and bob are ready for you to move.", Player.new.send(:alert_message, GameMerger.new(GameCSVParser.new(game_csv(2)).games, game_list))
+  end
 end

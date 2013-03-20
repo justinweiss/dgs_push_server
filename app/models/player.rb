@@ -23,33 +23,32 @@ class Player < ActiveRecord::Base
       game_csv = dgs.get(session, '/quick_status.php?version=2')
     end
     new_games = GameCSVParser.new(game_csv).games
-    added_games, removed_games, existing_games = Game.merge_games(self.games, new_games)
-    self.games = existing_games + added_games
-    create_notifications_for_games!(added_games, existing_games)
-    added_games
+    game_merger = GameMerger.new(self.games, new_games)
+    self.games = game_merger.current_games
+    create_notifications_for_games!(game_merger)
+    game_merger.added_games
   end
 
   private
 
-  def alert_message(added_games, existing_games)
-    opponents = added_games.map(&:opponent_name).uniq
-    games = added_games
+  def alert_message(game_merger)
+    opponents = game_merger.added_games.map(&:opponent_name).uniq
+
     if opponents.length > 3
-      message = "#{games.length} games are ready for you to move."
+      message = "#{game_merger.current_games.length} games are ready for you to move."
     else
       message = "#{opponents.to_sentence} #{opponents.length == 1 ? 'is' : 'are'} ready for you to move."
     end
   end
 
-  def create_notifications_for_games!(added_games, existing_games)
-    return if added_games.empty?
-    games = added_games + existing_games
+  def create_notifications_for_games!(game_merger)
+    return if game_merger.added_games.empty?
     self.apns_devices.each do |device|
       n = Rapns::Apns::Notification.new
       n.app = device.rapns_app
       n.device_token = device.device_token
-      n.alert = alert_message(added_games, existing_games)
-      n.badge = games.length
+      n.alert = alert_message(game_merger)
+      n.badge = game_merger.current_games.length
       # Fail silently
       n.save
     end
