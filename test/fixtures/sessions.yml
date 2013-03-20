@@ -4,3 +4,8 @@ justins_session:
   player: justin
   cookie: "cookie_handle=justinweiss; cookie_sessioncode=95697EB5E7567CBB4629F5E7567CBBABAB0BF7426"
   expires_at: 2013-01-20 21:14:14
+
+two_token_player_session:
+  player: player_with_two_tokens
+  cookie: "cookie_handle=twotoken; cookie_sessioncode=95697EB5E7567CBB4629F5E7567CBBABAB0BF7426"
+  expires_at: 2013-01-20 21:14:14
