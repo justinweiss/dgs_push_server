@@ -9,7 +9,9 @@ class Player < ActiveRecord::Base
 
   before_create :set_last_checked_at
 
-  scope :ready_for_fetching, lambda { where('last_checked_at < ?', 15.minutes.ago)}
+  scope :can_fetch, lambda { joins('left outer join sessions on sessions.player_id = players.id').where("sessions.id is not null") }
+  scope :can_notify, lambda { joins('left outer join apns_devices on apns_devices.player_id = players.id').where("apns_devices.id is not null") }
+  scope :ready_for_fetching, lambda { where('last_checked_at < ?', 15.minutes.ago) }
 
   def to_param
     dgs_user_id
