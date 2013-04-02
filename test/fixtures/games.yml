@@ -4,3 +4,8 @@ justins_first_game:
   dgs_game_id: 1
   opponent_name: awesome_go_player
   player: justin
+
+game_vs_justin:
+  dgs_game_id: 2
+  opponent_name: justin
+  player: player_with_two_tokens

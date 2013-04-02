@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121051414) do
+ActiveRecord::Schema.define(:version => 20130329050912) do
 
   create_table "apns_devices", :force => true do |t|
     t.integer  "player_id",    :null => false
@@ -41,9 +41,11 @@ ActiveRecord::Schema.define(:version => 20130121051414) do
     t.datetime "last_checked_at", :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "handle"
   end
 
   add_index "players", ["dgs_user_id"], :name => "index_players_on_dgs_user_id", :unique => true
+  add_index "players", ["handle"], :name => "index_players_on_handle"
   add_index "players", ["last_checked_at"], :name => "index_players_on_last_checked_at"
 
   create_table "rapns_apps", :force => true do |t|

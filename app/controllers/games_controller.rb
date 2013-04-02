@@ -13,6 +13,16 @@ class GamesController < ApplicationController
     respond_with :nothing
   end
 
+  def play
+    game = @player.games.find_by_dgs_game_id!(params[:id])
+    if game.opponent
+      game.destroy
+      game.opponent.fetch_new_games!
+    end
+
+    respond_with @player, game, location: nil
+  end
+
   private
   def load_player
     @player = Player.find_by_dgs_user_id!(params[:player_id])

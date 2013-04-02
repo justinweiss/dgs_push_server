@@ -13,13 +13,43 @@ class Player < ActiveRecord::Base
   scope :can_notify, lambda { select('players.*').joins('inner join apns_devices on apns_devices.player_id = players.id').uniq }
   scope :ready_for_fetching, lambda { where('last_checked_at < ?', 15.minutes.ago) }
 
+  # Translates the local id into a DGS user id, so our urls can all be
+  # in terms of what DGS knows. This will make interfacing with other
+  # apps easier.
   def to_param
     dgs_user_id
   end
 
+  def handle=(value)
+    # Don't update the handle if it's blank or nil
+    write_attribute(:handle, value) if value.present?
+    value
+  end
+
+  # Fetch new games and notify the player if we have new games or get
+  # logged out. This will be a noop if the player doesn't have a
+  # session or device tied to their account, since we won't bother
+  # notifying them anyway! If this ever becomes more than just a push
+  # server, we'll probably need to loosen that restriction.
+  def fetch_new_games!
+    if session && apns_devices.length > 0
+      ActiveRecord::Base.transaction do
+        if session.expired?
+          handle_expired_session
+        else
+          fetch_games
+        end
+      end
+    end
+  ensure
+    touch(:last_checked_at)
+  end
+
+  private
+
   # Makes a request to DGS, merges the games, and adds any needed
   # notifications to the notification list.
-  def fetch_new_games!(session = self.session)
+  def fetch_games
     game_csv = nil
     DGS::ConnectionPool.with do |dgs|
       game_csv = dgs.get(session, '/quick_status.php?version=2')
@@ -29,9 +59,15 @@ class Player < ActiveRecord::Base
     self.games = game_merger.current_games
     create_notifications_for_games!(game_merger)
     game_merger.added_games
+    #   rescue others => report & ignore, blow transaction?
+  rescue DGS::NotLoggedInException
+    handle_expired_session
   end
 
-  private
+  def handle_expired_session
+    create_notification_for_expired_session!
+    session.destroy
+  end
 
   def alert_message(game_merger)
     opponents = game_merger.added_games.map(&:opponent_name).uniq
@@ -40,6 +76,17 @@ class Player < ActiveRecord::Base
       message = "#{game_merger.current_games.length} games are ready for you to move."
     else
       message = "#{opponents.to_sentence} #{opponents.length == 1 ? 'is' : 'are'} ready for you to move."
+    end
+  end
+
+  def create_notification_for_expired_session!
+    apns_devices.each do |device|
+      n = Rapns::Apns::Notification.new
+      n.app = device.rapns_app
+      n.device_token = device.device_token
+      n.alert = "You have been logged out of DGS"
+      # Fail silently
+      n.save
     end
   end
 

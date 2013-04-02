@@ -72,7 +72,7 @@ class ApnsDevicesControllerTest < ActionController::TestCase
 
   test "Render a 404 if we don't have an app passed in" do
     @request.env.delete("X_BUNDLE_IDENTIFIER")
-    assert_raises(ActionController::RoutingError) do
+    assert_raises(ActiveRecord::RecordNotFound) do
       post :create, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
     end
   end
@@ -142,11 +142,11 @@ class ApnsDevicesControllerTest < ActionController::TestCase
 
   test "Render a 404 if we don't have an app passed in for updating" do
     @request.env.delete("X_BUNDLE_IDENTIFIER")
-    assert_raises(ActionController::RoutingError) do
+    assert_raises(ActiveRecord::RecordNotFound) do
       put :update, id: @main_device.id, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
     end
 
-    assert_raises(ActionController::RoutingError) do
+    assert_raises(ActiveRecord::RecordNotFound) do
       put :update, id: 1000, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @main_encoded_device_token }
     end
   end

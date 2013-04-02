@@ -25,20 +25,10 @@ class PlayerTest < ActiveSupport::TestCase
 
   test "A player can request their list of games" do
     mock_dgs_with_response game_csv(3) do
-      games = @main_player.fetch_new_games!
+      @main_player.fetch_new_games!
+      games = @main_player.reload.games
       assert_equal 3, games.length
       assert_equal 1000, games.first.dgs_game_id
-    end
-  end
-
-  test "fetch_new_games! only returns new games" do
-    game_data = [{dgs_game_id: 1, updated_at: @main_player.games.first.updated_at}, {}]
-    game_list = csv_for_game_data(game_data)
-
-    mock_dgs_with_response game_list do
-      games = @main_player.fetch_new_games!
-      assert_equal 1, games.length
-      assert_equal 1001, games.first.dgs_game_id
     end
   end
 

@@ -10,7 +10,7 @@ class ApnsDevicesController < ApplicationController
   def create
     @device.player = @player
     @device.save!
-    respond_with @player, @device, :location => nil
+    respond_with @player, @device, location: nil
   end
 
   def update
@@ -27,7 +27,7 @@ class ApnsDevicesController < ApplicationController
 
   def destroy
     @device.destroy
-    respond_with @player, @device, :location => nil
+    respond_with @player, @device, location: nil
   end
 
   private
@@ -46,8 +46,7 @@ class ApnsDevicesController < ApplicationController
   end
 
   def load_app
-    @app = Rapns::Apns::App.find_by_name(request.headers["X_BUNDLE_IDENTIFIER"])
-    render_404 unless @app
+    @app = Rapns::Apns::App.find_by_name!(request.headers["X_BUNDLE_IDENTIFIER"])
   end
 
   def verify_app_scope

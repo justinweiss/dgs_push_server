@@ -7,7 +7,7 @@ class SessionHandlingTest < ActionDispatch::IntegrationTest
 
   test "Can handle a session being created with cookies" do
     @main_player.session.destroy if @main_player.session
-    mock_dgs_with_new_session(game_csv(1), session_params[:session]) do
+    mock_dgs_with_new_session(session_params[:session]) do
       assert_difference "Session.count", 1 do
         post "/players/#{@main_player.dgs_user_id}/session.json", session_params
       end
@@ -28,7 +28,11 @@ class SessionHandlingTest < ActionDispatch::IntegrationTest
 
   private
 
-  def session_params
-    {session: {cookie: "test cookie", expires_at: 1.week.from_now}}
+  def dgs_cookie(handle = @main_player.handle)
+    "cookie_handle=#{handle}; cookie_sessioncode=7062D09AD9DEA0AF3AC2EA1D892D63930CE96EE71"
+  end
+
+  def session_params(cookie = dgs_cookie)
+    {session: {cookie: cookie, expires_at: 1.week.from_now}}
   end
 end

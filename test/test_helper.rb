@@ -53,23 +53,42 @@ class ActiveSupport::TestCase
     game_list_string
   end
 
+  # The DGS mock 'primitive'. This yields (and returns) a mock of a
+  # sole copy of the DGS server that all requests inside the block
+  # will use when making requests.
+  def mock_dgs
+    dgs = MiniTest::Mock.new
+    DGS::ConnectionPool.stub(:checkout, dgs) do
+      DGS::ConnectionPool.stub(:checkin, nil) do
+        yield dgs
+      end
+    end
+    dgs
+  end
+
   # Mocks the DGS connection, responding with +response+. If response
   # is callable, calls it and returns the return value of the callable.
   def mock_dgs_with_response(response, session = players(:justin).session)
-    dgs = MiniTest::Mock.new
-    dgs.expect(:get, response, [session, "/quick_status.php?version=2"])
-    DGS::ConnectionPool.stub(:checkout, dgs) do
-      DGS::ConnectionPool.stub(:checkin, nil) do
-        yield
-      end
-    end
-    dgs.verify
+    mock_dgs do |dgs|
+      dgs.expect(:get, response, [session, "/quick_status.php?version=2"])
+      yield
+    end.verify
   end
 
-  def mock_dgs_with_new_session(response, session_params)
+  # Mocks a Session test request, returning +handle+, made with +session+.
+  def mock_session_test_request(handle = players(:justin).handle, session = players(:justin).session)
+    mock_dgs do |dgs|
+      dgs.expect(:get, {:handle => handle}.to_json, [session, '/quick_do.php?obj=user&cmd=info'])
+      yield
+    end
+  end
+
+  # Mocks a session test request with a new Session constructed from
+  # +session_params+, returning +handle+.
+  def mock_dgs_with_new_session(session_params, handle = players(:justin).handle)
     new_session = Session.new(session_params)
     Session.stub(:new, new_session) do
-      mock_dgs_with_response response, new_session do
+      mock_session_test_request(handle, new_session) do
         yield
       end
     end
