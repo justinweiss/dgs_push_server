@@ -5,7 +5,7 @@ class GameMovesTest < ActionDispatch::IntegrationTest
     player = players(:player_with_two_tokens)
     mock_dgs_with_response(game_csv(1)) do
       assert_difference "Rapns::Notification.count", 1 do
-        post "/players/#{player.dgs_user_id}/games/#{player.games.first.dgs_game_id}/play.json"
+        post "/players/#{player.dgs_user_id}/games/#{player.games.first.dgs_game_id}/move.json"
       end
     end
   end
@@ -14,7 +14,7 @@ class GameMovesTest < ActionDispatch::IntegrationTest
     player = players(:player_with_two_tokens)
     assert_difference "Rapns::Notification.count", 0 do
       assert_raises(ActiveRecord::RecordNotFound) do
-        post "/players/#{player.dgs_user_id}/games/1/play.json"
+        post "/players/#{player.dgs_user_id}/games/1/move.json"
       end
     end
   end

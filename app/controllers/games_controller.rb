@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     respond_with :nothing
   end
 
-  def play
+  def move
     game = @player.games.find_by_dgs_game_id!(params[:id])
     if game.opponent
       game.destroy
