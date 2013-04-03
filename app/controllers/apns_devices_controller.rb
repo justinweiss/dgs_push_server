@@ -33,7 +33,7 @@ class ApnsDevicesController < ApplicationController
   private
 
   def load_player
-    @player = Player.where(dgs_user_id: params[:player_id]).first_or_initialize
+    @player = Player.find_by_dgs_user_id!(params[:player_id])
   end
 
   def load_device_by_token

@@ -13,7 +13,7 @@ class ApnsDeviceManagementTest < ActionDispatch::IntegrationTest
   end
 
   test "The devices controller can't be hit with the html format" do
-    post '/players/1/devices.json', {device: {encoded_device_token: "ABC123"}}, @headers
+    post "/players/#{players(:justin).to_param}/devices.json", {device: {encoded_device_token: "ABC123"}}, @headers
     assert_response :success
 
     assert_not_routed do

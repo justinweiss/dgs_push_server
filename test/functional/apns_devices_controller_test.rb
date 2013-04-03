@@ -17,17 +17,9 @@ class ApnsDevicesControllerTest < ActionController::TestCase
   end
 
   # ApnsDevicesController#create
-  test "If we get a new token without a user or a device id, create them both" do
-    assert_difference "ApnsDevice.count", 1 do
-      assert_difference "Player.count", 1 do
-        post :create, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
-        assert_response :success
-      end
-    end
-  end
 
   test "A new token gets created properly" do
-    post :create, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
+    post :create, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
     assert_response :success
     assert_equal @new_device_token, ApnsDevice.last.device_token
     assert_equal @app_id, ApnsDevice.last.rapns_app.name
@@ -59,12 +51,12 @@ class ApnsDevicesControllerTest < ActionController::TestCase
 
   test "If we already have this device token, but with a different player, re-associate the device token with the new player and don't create a new device" do
     assert_difference "ApnsDevice.count", 0 do
-      assert_difference "Player.count", 1 do
+      assert_difference "Player.count", 0 do
         assert_difference "@main_player.reload.apns_devices.count", -1 do
-          post :create, player_id: 10, device: { encoded_device_token: @main_encoded_device_token }
+          post :create, player_id: players(:player_without_tokens), device: { encoded_device_token: @main_encoded_device_token }
           assert_response :success
-          assert_equal 10, assigns(:device).dgs_user_id
-          assert_equal 10, @main_device.reload.dgs_user_id
+          assert_equal players(:player_without_tokens).dgs_user_id, assigns(:device).dgs_user_id
+          assert_equal players(:player_without_tokens).dgs_user_id, @main_device.reload.dgs_user_id
         end
       end
     end
@@ -78,10 +70,10 @@ class ApnsDevicesControllerTest < ActionController::TestCase
   end
 
   test "After being created, the app should return a particular set of parameters" do
-    post :create, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
+    post :create, player_id: @main_player, device: { encoded_device_token: @new_encoded_device_token }
     assert_response :success
 
-    assert_correct_response(dgs_user_id: 1000, device_token: @new_device_token)
+    assert_correct_response(dgs_user_id: @main_player.dgs_user_id, device_token: @new_device_token)
   end
 
   # ApnsDevicesController#update
@@ -89,14 +81,6 @@ class ApnsDevicesControllerTest < ActionController::TestCase
     put :update, id: 100, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @main_encoded_device_token }
     assert_response :success
     assert_equal @main_device.id, assigns(:device).id
-  end
-
-  test "If we match a token but the user doesn't match, and is new, create the user" do
-    assert_difference "Player.count", 1 do
-      put :update, id: @main_device.id, player_id: 4, device: { encoded_device_token: @main_device.device_token }
-    end
-    assert_response :success
-    assert_equal 4, assigns(:device).dgs_user_id
   end
 
   test "If we match a token but the user doesn't match, reassign the token to the passed in user" do
@@ -118,13 +102,13 @@ class ApnsDevicesControllerTest < ActionController::TestCase
   end
 
   test "If we pass in completely new data, create all the necessary records" do
-    assert_difference "Player.count", 1 do
+    assert_difference "Player.count", 0 do
       assert_difference "ApnsDevice.count", 1 do
-        put :update, id: 123456, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
+        put :update, id: 123456, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
         assert_response :success
       end
     end
-    assert_equal @new_device_token, Player.find_by_dgs_user_id(1000).apns_devices.first.device_token
+    assert_equal @new_device_token, @main_player.reload.apns_devices.first.device_token
   end
 
   test "Update returns the correct json" do
