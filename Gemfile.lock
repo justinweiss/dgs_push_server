@@ -83,7 +83,7 @@ GEM
     newrelic_rpm (3.6.2.96)
     pg (0.14.1)
     polyglot (0.3.3)
-    puma (2.0.0.b7)
+    puma (2.0.1)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
@@ -166,7 +166,7 @@ DEPENDENCIES
   mocha
   newrelic_rpm
   pg
-  puma (>= 2.0.0.b4)
+  puma
   rails (~> 3.2.11)
   rapns (~> 3.3.0)
   sass-rails (~> 3.2.3)

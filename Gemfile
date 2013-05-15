@@ -8,7 +8,7 @@ gem 'strong_parameters'
 gem 'faraday'
 gem 'sidekiq'
 gem 'clockwork'
-gem 'puma', '>= 2.0.0.b4'
+gem 'puma'
 gem 'exception_notification'
 gem 'newrelic_rpm'
 
