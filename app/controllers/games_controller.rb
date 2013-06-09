@@ -17,7 +17,7 @@ class GamesController < ApplicationController
     game = @player.games.find_by_dgs_game_id!(params[:id])
     if game.opponent
       game.destroy
-      game.opponent.fetch_new_games!
+      ForceFetchGamesForPlayer.perform_async(game.opponent.id)
     end
 
     respond_with @player, game, location: nil
