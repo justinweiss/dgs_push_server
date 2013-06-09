@@ -50,22 +50,26 @@ Rapns.reflect do |on|
 
   # Called when notification delivery failed.
   # Call 'error_code' and 'error_description' on the notification for the cause.
-  # on.notification_failed do |notification|
-  # end
+  on.notification_failed do |notification|
+    Rapns.logger.error("Notification failed to deliver: #{notification.error_code} #{notification.error_description} (#{notification.inspect}).")
+  end
 
   # Called when a notification will be retried at a later date.
   # Call 'deliver_after' on the notification for the next delivery date
   # and 'retries' for the number of times this notification has been retried.
-  # on.notification_will_retry do |notification|
-  # end
+  on.notification_will_retry do |notification|
+    Rapns.logger.error("Will retry notification: #{notification.inspect} on #{notification.deliver_after} #{notification.retry} times.")
+  end
 
   # Called when an APNs connection is lost and will be reconnected.
-  # on.apns_connection_lost do |app, error|
-  # end
+  on.apns_connection_lost do |app, error|
+    Rapns.logger.error("Lost APNS connection.")
+  end
 
   # Called when an exception is raised.
   on.error do |error|
-    ExceptionNotifier::Notifier.background_exception_notification(msg).deliver
+    puts error.inspect
+    ExceptionNotifier::Notifier.background_exception_notification(error).deliver
   end
 
 end
