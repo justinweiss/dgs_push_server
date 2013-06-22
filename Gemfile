@@ -11,6 +11,7 @@ gem 'clockwork'
 gem 'puma'
 gem 'exception_notification'
 gem 'newrelic_rpm'
+gem 'schema_plus'
 
 group :development do
   gem 'debugger'

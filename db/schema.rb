@@ -11,30 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329050912) do
-
-  create_table "apns_devices", :force => true do |t|
-    t.integer  "player_id",    :null => false
-    t.integer  "rapns_app_id", :null => false
-    t.string   "device_token", :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "apns_devices", ["device_token"], :name => "index_apns_devices_on_device_token", :unique => true
-  add_index "apns_devices", ["player_id"], :name => "index_apns_devices_on_player_id"
-  add_index "apns_devices", ["rapns_app_id"], :name => "index_apns_devices_on_rapns_app_id"
-
-  create_table "games", :force => true do |t|
-    t.integer  "dgs_game_id",   :null => false
-    t.string   "opponent_name"
-    t.integer  "player_id",     :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "games", ["dgs_game_id"], :name => "index_games_on_dgs_game_id"
-  add_index "games", ["player_id"], :name => "index_games_on_player_id"
+ActiveRecord::Schema.define(:version => 20130622052828) do
 
   create_table "players", :force => true do |t|
     t.integer  "dgs_user_id",     :null => false
@@ -42,11 +19,10 @@ ActiveRecord::Schema.define(:version => 20130329050912) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "handle"
+    t.index ["dgs_user_id"], :name => "index_players_on_dgs_user_id", :unique => true
+    t.index ["handle"], :name => "index_players_on_handle"
+    t.index ["last_checked_at"], :name => "index_players_on_last_checked_at"
   end
-
-  add_index "players", ["dgs_user_id"], :name => "index_players_on_dgs_user_id", :unique => true
-  add_index "players", ["handle"], :name => "index_players_on_handle"
-  add_index "players", ["last_checked_at"], :name => "index_players_on_last_checked_at"
 
   create_table "rapns_apps", :force => true do |t|
     t.string   "name",                       :null => false
@@ -60,15 +36,38 @@ ActiveRecord::Schema.define(:version => 20130329050912) do
     t.string   "auth_key"
   end
 
+  create_table "apns_devices", :force => true do |t|
+    t.integer  "player_id",    :null => false
+    t.integer  "rapns_app_id", :null => false
+    t.string   "device_token", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.index ["device_token"], :name => "index_apns_devices_on_device_token", :unique => true
+    t.index ["player_id"], :name => "index_apns_devices_on_player_id"
+    t.index ["rapns_app_id"], :name => "index_apns_devices_on_rapns_app_id"
+    t.foreign_key ["player_id"], "players", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "fk_apns_devices_player_id"
+    t.foreign_key ["rapns_app_id"], "rapns_apps", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "fk_apns_devices_rapns_app_id"
+  end
+
+  create_table "games", :force => true do |t|
+    t.integer  "dgs_game_id",   :null => false
+    t.string   "opponent_name"
+    t.integer  "player_id",     :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.index ["dgs_game_id"], :name => "index_games_on_dgs_game_id"
+    t.index ["player_id"], :name => "index_games_on_player_id"
+    t.foreign_key ["player_id"], "players", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "fk_games_player_id"
+  end
+
   create_table "rapns_feedback", :force => true do |t|
     t.string   "device_token", :limit => 64, :null => false
     t.datetime "failed_at",                  :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.string   "app"
+    t.index ["device_token"], :name => "index_rapns_feedback_on_device_token"
   end
-
-  add_index "rapns_feedback", ["device_token"], :name => "index_rapns_feedback_on_device_token"
 
   create_table "rapns_notifications", :force => true do |t|
     t.integer  "badge"
@@ -93,9 +92,8 @@ ActiveRecord::Schema.define(:version => 20130329050912) do
     t.text     "registration_ids"
     t.integer  "app_id",                                                  :null => false
     t.integer  "retries",                          :default => 0
+    t.index ["app_id", "delivered", "failed", "deliver_after"], :name => "index_rapns_notifications_multi"
   end
-
-  add_index "rapns_notifications", ["app_id", "delivered", "failed", "deliver_after"], :name => "index_rapns_notifications_multi"
 
   create_table "sessions", :force => true do |t|
     t.integer  "player_id"
@@ -103,8 +101,8 @@ ActiveRecord::Schema.define(:version => 20130329050912) do
     t.datetime "expires_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.index ["player_id"], :name => "index_sessions_on_player_id"
+    t.foreign_key ["player_id"], "players", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "fk_sessions_player_id"
   end
-
-  add_index "sessions", ["player_id"], :name => "index_sessions_on_player_id"
 
 end
