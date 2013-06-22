@@ -44,4 +44,15 @@ class GamesControllerTest < ActionController::TestCase
     assert_equal player.id, Game.last.player.id
     refute Game.find_by_id(game.dgs_game_id), "Original game should not have been found."
   end
+
+    test "When we don't get a list of games, we should delete all the player's games" do
+    player = players(:justin)
+    game = player.games.first
+    assert game, "Main player should have a game"
+    assert_difference "Game.count", -player.games.length do
+      put :update_all, player_id: player.dgs_user_id
+    end
+
+    assert_equal 0, player.reload.games.count
+  end
 end
