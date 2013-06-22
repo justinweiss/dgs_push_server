@@ -16,6 +16,7 @@ gem 'schema_plus'
 group :development do
   gem 'debugger'
   gem 'foreman'
+  gem 'thin'
 end
 
 group :test do
