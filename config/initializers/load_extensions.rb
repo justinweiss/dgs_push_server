@@ -1,0 +1,1 @@
+require 'extensions/sqlite3_referential_integrity'
