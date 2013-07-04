@@ -9,4 +9,4 @@ module Extensions
   end
 end
 
-ActiveRecord::ConnectionAdapters::SQLite3Adapter.send(:include, Extensions::SQLite3ReferentialIntegrity)
+ActiveRecord::ConnectionAdapters::SQLite3Adapter.send(:include, Extensions::SQLite3ReferentialIntegrity) if defined?(ActiveRecord::ConnectionAdapters::SQLite3Adapter)
