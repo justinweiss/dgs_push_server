@@ -5,7 +5,13 @@ justins_first_game:
   opponent_name: awesome_go_player
   player: justin
 
-game_vs_justin:
+justins_not_so_recent_game:
   dgs_game_id: 2
+  opponent_name: awesome_go_player_2
+  updated_at: <%= 1.week.ago %>
+  player: justin
+
+game_vs_justin:
+  dgs_game_id: 3
   opponent_name: justin
   player: player_with_two_tokens

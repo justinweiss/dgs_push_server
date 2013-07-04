@@ -1,4 +1,4 @@
-class ApnsDevicesController < ApplicationController
+class DevicesController < ApplicationController
 
   respond_to :json
   before_filter :load_app

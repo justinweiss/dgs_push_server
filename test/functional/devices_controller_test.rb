@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApnsDevicesControllerTest < ActionController::TestCase
+class DevicesControllerTest < ActionController::TestCase
   include JSONRequiredTest
 
   setup do

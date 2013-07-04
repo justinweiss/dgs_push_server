@@ -45,7 +45,7 @@ class GamesControllerTest < ActionController::TestCase
     refute Game.find_by_id(game.dgs_game_id), "Original game should not have been found."
   end
 
-    test "When we don't get a list of games, we should delete all the player's games" do
+  test "When we don't get a list of games, we should delete all the player's games" do
     player = players(:justin)
     game = player.games.first
     assert game, "Main player should have a game"
@@ -55,4 +55,23 @@ class GamesControllerTest < ActionController::TestCase
 
     assert_equal 0, player.reload.games.count
   end
+
+  test "index returns a list of games by last move time" do
+    player = players(:justin)
+    get :index, player_id: player.to_param, after: (games(:justins_not_so_recent_game).updated_at + 1.day).to_s(:db)
+    assert_equal 1, JSON.parse(response.body).count
+  end
+
+  test "index doesn't return games made in the same second as the query" do
+    player = players(:justin)
+    get :index, player_id: player.to_param, after: games(:justins_not_so_recent_game).updated_at.to_s(:db)
+    assert_equal 1, JSON.parse(response.body).count
+  end
+
+  test "index returns all games if no value for after is passed" do
+    player = players(:justin)
+    get :index, player_id: player.to_param
+    assert_equal player.games.count, JSON.parse(response.body).count
+  end
+
 end

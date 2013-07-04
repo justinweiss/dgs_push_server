@@ -1,6 +1,14 @@
+require 'time'
 class GamesController < ApplicationController
   respond_to :json
   before_filter :load_player
+  before_filter :normalize_after_params, :only => :index
+
+  def index
+    scope = @player.games
+    scope = scope.where('updated_at >= ?', params[:after]) if params[:after]
+    respond_with scope
+  end
 
   def update_all
     games = Array(params[:games]).map do |dgs_game_id, game_params|
@@ -24,6 +32,16 @@ class GamesController < ApplicationController
   end
 
   private
+
+  # sqlite does milliseconds here, which is way more precise than we
+  # have. So here, we have to do '>= time + 1 second' instead of '>
+  # time'
+  def normalize_after_params
+    if params[:after]
+      params[:after] = (Time.parse(params[:after]) + 1.second).to_s(:db)
+    end
+  end
+
   def load_player
     @player = Player.find_by_dgs_user_id!(params[:player_id])
   end
