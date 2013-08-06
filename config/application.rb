@@ -70,5 +70,7 @@ module DgsPushServer
     if exception_notifier_settings
       config.middleware.use(ExceptionNotifier, exception_notifier_settings.symbolize_keys)
     end
+
+    config.middleware.swap Rails::Rack::Logger, Silencer::Logger, :silence => %w(/test/succeed /test/fail)
   end
 end

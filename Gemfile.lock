@@ -132,6 +132,8 @@ GEM
       multi_json (~> 1)
       redis (~> 3)
       redis-namespace
+    silencer (0.6.0)
+      railties (>= 3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -182,6 +184,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   schema_plus
   sidekiq
+  silencer
   sqlite3
   strong_parameters
   thin
