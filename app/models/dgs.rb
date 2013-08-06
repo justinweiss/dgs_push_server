@@ -13,8 +13,7 @@ class DGS
     @host = @config['host']
     @base_path = @config['base_path']
     @connection = Faraday.new(:url => host) do |faraday|
-      faraday.response :logger # log requests to STDOUT
-      faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
+      faraday.adapter Faraday.default_adapter # make requests with Net::HTTP
       faraday.use ParseDGSResponse
     end
   end
