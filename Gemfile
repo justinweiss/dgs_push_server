@@ -13,6 +13,7 @@ gem 'exception_notification'
 gem 'newrelic_rpm'
 gem 'schema_plus'
 gem 'silencer'
+gem 'slim'
 
 group :development do
   gem 'debugger'
@@ -36,6 +37,8 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'twitter-bootstrap-rails', :github => 'seyhunak/twitter-bootstrap-rails', :branch => 'bootstrap3'
 end
 
 gem 'jquery-rails'
