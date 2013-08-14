@@ -59,6 +59,12 @@ module DgsPushServer
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Add the fonts path
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+    # Precompile additional assets
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
+
     smtp_settings = YAML.load_file(File.expand_path("../smtp_settings.yml", __FILE__))[Rails.env]
 
     if smtp_settings

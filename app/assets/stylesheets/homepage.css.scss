@@ -1,0 +1,70 @@
+
+a {
+  transition: color 0.5s;
+}
+
+header {
+  background-color: $brown;
+  height: 140px;
+  margin-bottom: 60px;
+
+  h1, ul {
+    line-height: 140px;
+    margin: 0;
+  }
+
+  a {
+    color: $white;
+    &:hover {
+      color: darken($white, 10%);
+    }
+  }
+
+  ul.inline {
+    font-size: 21px;
+    >li {
+      padding: 0 16px;
+    }
+  }
+}
+
+.hero {
+  margin-bottom: 42px;
+}
+
+.description {
+  li, p {
+    margin-bottom: 21px;
+  }
+}
+
+.extras {
+  background-color: $gray;
+  border-top: 1px solid $lightGray;
+
+  h3 {
+    margin-top: 42px;
+  }
+}
+
+
+/* overriding responsive-bootstrap */
+@media (max-width: 767px) {
+  body {
+    padding: 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}

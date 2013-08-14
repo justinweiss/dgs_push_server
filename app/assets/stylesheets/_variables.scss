@@ -1,0 +1,19 @@
+$brown: #887248;
+$red: #7b0d00;
+$purple: #665f7d;
+$gray: #eceff2;
+$lightGray: #e4e7e9;
+$white: #ffffff;
+
+
+$sansFontFamily: "Lato", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+$baseFontSize: 16px;
+$baseLineHeight: 21px;
+
+$btnPrimaryBackground:                 $red;
+$btnPrimaryBackgroundHighlight:        darken($btnPrimaryBackground, 15%);
+
+$headingsFontWeight: 300;
+
+$linkColor: $purple;
+$linkColorHover: darken($linkColor, 35%);

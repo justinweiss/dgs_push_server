@@ -12,4 +12,8 @@ DgsPushServer::Application.routes.draw do
 
   get '/test/fail'
   get '/test/succeed'
+
+  match "/licenses.html", :to => "pages#licenses", :as => 'licenses'
+
+  root :to => 'pages#homepage', :as => 'homepage'
 end
