@@ -1,0 +1,10 @@
+&defaults:
+  google_analytics_account:
+
+development: *defaults
+
+test: *defaults
+
+staging: *defaults
+
+production: *defaults

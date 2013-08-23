@@ -19,5 +19,6 @@
 /config/apns_settings.yml
 /config/smtp_settings.yml
 /config/exception_notifier_settings.yml
+/config/app_settings.yml
 /config/initializers/secret_token.rb
 /config/*.pem
