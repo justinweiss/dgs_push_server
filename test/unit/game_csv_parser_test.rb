@@ -9,4 +9,10 @@ class GameCSVParserTest < ActiveSupport::TestCase
     assert_equal 'Tirog', games.first.opponent_name
     assert_equal Time.utc(2013, 1, 14, 23, 32, 00), games.first.updated_at
   end
+
+  test "The CSV parser re-escapes badly escaped text" do
+    game_csv = File.read(File.expand_path("test/fixtures/sample_responses/game_list_with_bad_quotes.csv"))
+    games = GameCSVParser.new(game_csv).games
+    assert_equal 2, games.length
+  end
 end

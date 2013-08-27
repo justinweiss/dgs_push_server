@@ -1,0 +1,6 @@
+## B,bulletin_id,target_type,category,'publish_time','expire_time','subject'
+## M,message_id,folder_id,type,'sender','subject','date'
+M,2560,2,NORMAL,'someone','RE: Hoe is \'t?','2013-07-31 09:28:07'
+## G,game_id,'opponent_handle',player_color,'lastmove_date','time_remaining',game_action,game_status,move_id,tournament_id,shape_id,game_type,game_prio,'opponent_lastaccess_date',handicap
+G,765115,'Tirog',W,'2013-01-14 23:32:00','F: 5d 1h (+ 1d)',2,PLAY,137,0,0,'GO',0,'2013-01-17 00:21:16',0
+G,783006,'Catlemur',W,'2013-01-15 04:48:34','F: 5d 1h (+ 1d)',2,PLAY,21,0,0,'GO',0,'2013-01-16 13:31:40',5

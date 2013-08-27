@@ -3,6 +3,7 @@ require 'csv'
 class GameCSVParser
 
   def initialize(csv_string)
+    csv_string = correctly_formatted_csv(csv_string)
     @rows = CSV.parse(csv_string, quote_char: "'")
   end
 
@@ -11,6 +12,14 @@ class GameCSVParser
   end
 
   private
+
+  def correctly_formatted_csv(csv_string)
+    csv_without_badly_escaped_quotes(csv_string)
+  end
+
+  def csv_without_badly_escaped_quotes(csv_string)
+    csv_string.gsub("\\'", "''")
+  end
 
   def game_rows
     @rows.select { |row| is_game_row?(row) }
