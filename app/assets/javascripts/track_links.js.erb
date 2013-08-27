@@ -1,4 +1,3 @@
-<% environment.context_class.instance_eval { include PagesHelper } %>
 if (_gaq) {
   $(function () {
     var trackLink = function (link, category, action) {
@@ -11,7 +10,7 @@ if (_gaq) {
       return false;
     };
 
-    $('body').on('click', "a[href='<%= app_url %>']", function () {
+    $('body').on('click', "a[href='http://appstore.com/dragongoclient']", function () {
       return trackLink(this, "Outbound Clicks", "Clicked App Store Link");
     });
   });
