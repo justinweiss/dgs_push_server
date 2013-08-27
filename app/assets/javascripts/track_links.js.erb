@@ -1,0 +1,18 @@
+<% environment.context_class.instance_eval { include PagesHelper } %>
+if (_gaq) {
+  $(function () {
+    var trackLink = function (link, category, action) {
+      try {
+        _gaq.push(['_trackEvent', category, action]);
+      } catch (err) {}
+      setTimeout(function () {
+        document.location.href = link.href;
+      }, 100);
+      return false;
+    };
+
+    $('body').on('click', "a[href='<%= app_url %>']", function () {
+      return trackLink(this, "Outbound Clicks", "Clicked App Store Link");
+    });
+  });
+}
