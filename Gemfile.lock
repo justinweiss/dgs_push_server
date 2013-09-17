@@ -88,7 +88,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    puma (2.4.0)
+    puma (2.6.0)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
@@ -188,7 +188,7 @@ DEPENDENCIES
   pg
   pry
   pry-nav
-  puma (~> 2.4)
+  puma (~> 2.6)
   rails (~> 3.2.11)
   rapns (~> 3.3)
   sass-rails (~> 3.2.3)
