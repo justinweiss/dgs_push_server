@@ -65,4 +65,7 @@ DgsPushServer::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  # For now, the job queueing messages are just noise.
+  Sidekiq::Logging.logger.level = Logger::WARN
+
 end
