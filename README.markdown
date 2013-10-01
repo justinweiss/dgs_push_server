@@ -1,5 +1,7 @@
 # The Dragon Go Client Push Server
 
+[![Build Status](https://travis-ci.org/justinweiss/dgs_push_server.png?branch=master)](https://travis-ci.org/justinweiss/dgs_push_server) [![Code Climate](https://codeclimate.com/github/justinweiss/dgs_push_server.png)](https://codeclimate.com/github/justinweiss/dgs_push_server)
+
 This server handles push notifications for
 [Dragon Go Client](http://dgs.uberweiss.net) for iOS devices.
 
