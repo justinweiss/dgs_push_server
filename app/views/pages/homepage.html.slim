@@ -25,13 +25,16 @@
 .extras
   .container
     section.row
-      .span12
+      .span6
         h3 Help Out
         p Dragon Go Client is open-source and released under the BSD License. The #{link_to "source is available on GitHub", source_url, :target => "_blank"}, and I'm available #{link_to "by email", email_url} if you have any questions.
         h3 Questions, Comments?
         p If you have any questions, comments, or suggestions, don't hesitate to contact me on Twitter (#{link_to "@justinweiss", "http://twitter.com/justinweiss", :target => "_blank"}) or #{link_to "via email", email_url}.
         h3 About Me
         p My name is #{link_to "Justin Weiss", "http://www.justinweiss.com", :target => "_blank"}, and I'm a software developer from Seattle. I'm a dev manager at #{link_to "Avvo", "http://www.avvo.com", :target => "_blank"}, which you should definitely check out if you're trying to find a lawyer or need legal advice.
+      .span6
+        = render "mailchimp"
 
-      footer.text-center
-        p= link_to "Licenses & Acknowledgements", licenses_path
+      .span12
+        footer.text-center
+          p= link_to "Licenses & Acknowledgements", licenses_path
