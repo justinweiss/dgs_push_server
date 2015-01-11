@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '~> 4.0.0'
+gem 'protected_attributes'
 gem 'sqlite3'
 gem 'pg'
 gem 'rapns', '~> 3.3'
-gem 'strong_parameters'
 gem 'faraday', '~> 0.8.7'
 gem 'sidekiq', '~> 2.8'
 gem 'clockwork'
 gem 'puma', '~> 2.6'
-gem 'exception_notification', '~> 3.0.1'
+gem 'exception_notification'
 gem 'newrelic_rpm'
 gem 'schema_plus'
 gem 'silencer'
@@ -31,8 +31,8 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

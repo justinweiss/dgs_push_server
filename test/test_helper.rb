@@ -11,9 +11,9 @@ WebMock.disable_net_connect!
 module JSONRequiredTest
   # Force the format to JSON, otherwise we'll get all kinds of routing
   # errors :-/
-  def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
+  def process(action, http_method = 'GET', parameters = nil, session = nil, flash = nil)
     parameters = {format: :json}.merge(parameters) if parameters
-    super(action, parameters, session, flash, http_method)
+    super(action, http_method, parameters, session, flash)
   end
 end
 
