@@ -69,7 +69,7 @@ Rapns.reflect do |on|
   # Called when an exception is raised.
   on.error do |error|
     puts error.inspect
-    ExceptionNotifier::Notifier.background_exception_notification(error).deliver
+    ExceptionNotifier.notify_exception(error)
   end
 
 end
