@@ -37,16 +37,16 @@ class DevicesController < ApplicationController
   end
 
   def load_device_by_token
-    @device = ApnsDevice.find_by_encoded_device_token(device_params[:encoded_device_token]).first_or_initialize(rapns_app: @app)
+    @device = ApnsDevice.find_by_encoded_device_token(device_params[:encoded_device_token]).first_or_initialize(rpush_app: @app)
   end
 
   def load_device_to_update
     @device = ApnsDevice.find_by_encoded_device_token(device_params[:encoded_device_token]).first ||
-      ApnsDevice.where(id: params[:id]).first_or_initialize(rapns_app: @app)
+      ApnsDevice.where(id: params[:id]).first_or_initialize(rpush_app: @app)
   end
 
   def load_app
-    @app = Rapns::Apns::App.find_by_name!(request.headers["X_BUNDLE_IDENTIFIER"])
+    @app = Rpush::Apns::App.find_by_name!(request.headers["X_BUNDLE_IDENTIFIER"])
   end
 
   def verify_app_scope
@@ -54,7 +54,7 @@ class DevicesController < ApplicationController
     # we *find* the token but it belongs to a different app, that's an
     # error. If we *don't* find the token, we automatically create one
     # under the right app.
-    raise ActiveRecord::RecordNotFound if @device.rapns_app && @device.rapns_app != @app
+    raise ActiveRecord::RecordNotFound if @device.rpush_app && @device.rpush_app != @app
   end
 
   def device_params

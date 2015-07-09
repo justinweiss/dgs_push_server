@@ -5,7 +5,7 @@ dgs:
   connections: 1
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
-  type: Rapns::Apns::App
+  type: Rpush::Client::ActiveRecord::Apns::App
 
 unused_app_id:
   id: 2
@@ -14,4 +14,4 @@ unused_app_id:
   connections: 1
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
-  type: Rapns::Apns::App
+  type: Rpush::Client::ActiveRecord::Apns::App

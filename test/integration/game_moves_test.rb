@@ -13,7 +13,7 @@ class GameMovesTest < ActionDispatch::IntegrationTest
 
   test "Attempting to play a move in a game that doesn't belong to the player triggers a 404" do
     player = players(:player_with_two_tokens)
-    assert_difference "Rapns::Notification.count", 0 do
+    assert_difference "Rpush::Notification.count", 0 do
       assert_raises(ActiveRecord::RecordNotFound) do
         post "/players/#{player.dgs_user_id}/games/1/move.json"
       end

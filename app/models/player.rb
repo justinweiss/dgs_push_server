@@ -81,8 +81,8 @@ class Player < ActiveRecord::Base
 
   def create_notification_for_expired_session!
     apns_devices.each do |device|
-      n = Rapns::Apns::Notification.new
-      n.app = device.rapns_app
+      n = Rpush::Apns::Notification.new
+      n.app = device.rpush_app
       n.device_token = device.device_token
       n.alert = "You have been logged out of DGS"
       # Fail silently
@@ -93,8 +93,8 @@ class Player < ActiveRecord::Base
   def create_notifications_for_games!(game_merger)
     return if game_merger.added_games.empty?
     self.apns_devices.each do |device|
-      n = Rapns::Apns::Notification.new
-      n.app = device.rapns_app
+      n = Rpush::Apns::Notification.new
+      n.app = device.rpush_app
       n.device_token = device.device_token
       n.alert = alert_message(game_merger)
       n.badge = game_merger.current_games.length

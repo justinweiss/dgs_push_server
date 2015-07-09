@@ -1,9 +1,9 @@
 class ApnsDevice < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   belongs_to :player, inverse_of: :apns_devices
-  belongs_to :rapns_app, class_name: "Rapns::Apns::App"
+  belongs_to :rpush_app, class_name: "Rpush::Client::ActiveRecord::Apns::App"
 
-  validates_presence_of :device_token, :rapns_app, :player
+  validates_presence_of :device_token, :rpush_app, :player
   validates_uniqueness_of :device_token
 
   scope :find_by_encoded_device_token, lambda { |encoded_token| where(device_token: decode_device_token(encoded_token)) }

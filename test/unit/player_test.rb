@@ -48,7 +48,7 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "fetch_new_games! creates a push notification if there are new games" do
-    assert_difference "Rapns::Apns::Notification.count", 1 do
+    assert_difference "Rpush::Apns::Notification.count", 1 do
       mock_dgs_with_response game_csv(1) do
         @main_player.fetch_new_games!
       end
@@ -59,7 +59,7 @@ class PlayerTest < ActiveSupport::TestCase
     game_data = [{dgs_game_id: 1, updated_at: @main_player.games.first.updated_at}]
     game_list = csv_for_game_data(game_data)
 
-    assert_difference "Rapns::Apns::Notification.count", 0 do
+    assert_difference "Rpush::Apns::Notification.count", 0 do
       mock_dgs_with_response game_list do
         @main_player.fetch_new_games!
       end

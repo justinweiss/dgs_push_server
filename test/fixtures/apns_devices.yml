@@ -2,15 +2,15 @@
 
 justins_main_device:
   player: justin
-  rapns_app_id: 1 # dgs app id
+  rpush_app_id: 1 # dgs app id
   device_token: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
 two_tokens_device_1:
   player: player_with_two_tokens
-  rapns_app_id: 1 # dgs app id
+  rpush_app_id: 1 # dgs app id
   device_token: 1123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
 two_tokens_device_2:
   player: player_with_two_tokens
-  rapns_app_id: 1 # dgs app id
+  rpush_app_id: 1 # dgs app id
   device_token: 2123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef

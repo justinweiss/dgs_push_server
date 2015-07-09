@@ -22,7 +22,7 @@ class DevicesControllerTest < ActionController::TestCase
     post :create, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
     assert_response :success
     assert_equal @new_device_token, ApnsDevice.last.device_token
-    assert_equal @app_id, ApnsDevice.last.rapns_app.name
+    assert_equal @app_id, ApnsDevice.last.rpush_app.name
   end
 
   test "If we get a new token without a device id but with a player, create the device and associate it with the player" do

@@ -20,6 +20,9 @@ module DgsPushServer
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # TODO remove me when you update rapns and remove the protected_attributes gem
+    config.active_record.whitelist_attributes = false
+
     # Add the fonts path
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 

@@ -4,7 +4,7 @@ gem 'rails', '~> 4.0.0'
 gem 'protected_attributes'
 gem 'sqlite3'
 gem 'pg'
-gem 'rapns', '~> 3.3'
+gem 'rpush'
 gem 'faraday', '~> 0.8.7'
 gem 'sidekiq', '~> 2.8'
 gem 'clockwork'
@@ -28,17 +28,13 @@ group :test do
   gem 'mocha', :require => false
 end
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass'
-end
+gem 'uglifier', '>= 1.0.3'
+gem 'bootstrap-sass', '< 3.0'
 
 gem 'jquery-rails'
