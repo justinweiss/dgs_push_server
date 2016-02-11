@@ -7,13 +7,13 @@ DgsPushServer::Application.routes.draw do
         post :move, on: :member
       end
     end
-    put 'players/:player_id/games.:format' => 'games#update_all'
+    put 'players/:player_id/games.:format', to: 'games#update_all'
   end
 
   get '/test/fail'
   get '/test/succeed'
 
-  get "/licenses.html", :to => "pages#licenses", :as => 'licenses'
+  get "/licenses.html", to: "pages#licenses", as: 'licenses'
 
-  root :to => 'pages#homepage', :as => 'homepage'
+  root to: 'pages#homepage', as: 'homepage'
 end
