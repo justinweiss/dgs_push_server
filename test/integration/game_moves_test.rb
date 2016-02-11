@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class GameMovesTest < ActionDispatch::IntegrationTest
+  test "The games#update_all route is recognized" do
+    assert_recognizes({controller: 'games', action: 'update_all', player_id: "1", format: 'json'}, {path: '/players/1/games.json', method: :put})
+  end
+  
   test "Playing a move in a game with another registered player triggers a notification" do
     player = players(:player_with_two_tokens)
     game = player.games.first

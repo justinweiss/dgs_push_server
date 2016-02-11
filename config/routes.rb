@@ -1,13 +1,14 @@
 DgsPushServer::Application.routes.draw do
-  scope({format: true, constraints: {format: :json}}) do
+  constraints -> (request) { request.format == :json } do
     resources :players, only: [] do
       resources :devices, only: [:create, :update, :destroy]
       resource :session, only: [:create]
       resources :games, only: [:index] do
         post :move, on: :member
       end
+      put 'games.:format', to: 'games#update_all'
     end
-    put 'players/:player_id/games.:format', to: 'games#update_all'
+    
   end
 
   get '/test/fail'
