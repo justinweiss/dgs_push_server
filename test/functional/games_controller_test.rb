@@ -5,7 +5,7 @@ class GamesControllerTest < ActionController::TestCase
 
   setup do
     @app_id = "net.uberweiss.DGS"
-    @request.env["X_BUNDLE_IDENTIFIER"] = @app_id
+    @request.env["HTTP_X_BUNDLE_IDENTIFIER"] = @app_id
     @request.accept = "application/json"
   end
 

@@ -5,7 +5,7 @@ class DevicesControllerTest < ActionController::TestCase
 
   setup do
     @app_id = "net.uberweiss.DGS"
-    @request.env["X_BUNDLE_IDENTIFIER"] = @app_id
+    @request.env["HTTP_X_BUNDLE_IDENTIFIER"] = @app_id
     @request.accept = "application/json"
 
     @main_player = players(:justin)
@@ -63,7 +63,7 @@ class DevicesControllerTest < ActionController::TestCase
   end
 
   test "Render a 404 if we don't have an app passed in" do
-    @request.env.delete("X_BUNDLE_IDENTIFIER")
+    @request.env.delete("HTTP_X_BUNDLE_IDENTIFIER")
     assert_raises(ActiveRecord::RecordNotFound) do
       post :create, player_id: 1000, device: { encoded_device_token: @new_encoded_device_token }
     end
@@ -118,14 +118,14 @@ class DevicesControllerTest < ActionController::TestCase
   end
 
   test "Can't lookup a token with a different app id for updating" do
-    @request.env["X_BUNDLE_IDENTIFIER"] = "net.uberweiss.Unused"
+    @request.env["HTTP_X_BUNDLE_IDENTIFIER"] = "net.uberweiss.Unused"
     assert_raises(ActiveRecord::RecordNotFound) do
       put :update, id: @main_device.id, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
     end
   end
 
   test "Render a 404 if we don't have an app passed in for updating" do
-    @request.env.delete("X_BUNDLE_IDENTIFIER")
+    @request.env.delete("HTTP_X_BUNDLE_IDENTIFIER")
     assert_raises(ActiveRecord::RecordNotFound) do
       put :update, id: @main_device.id, player_id: @main_player.dgs_user_id, device: { encoded_device_token: @new_encoded_device_token }
     end
@@ -151,7 +151,7 @@ class DevicesControllerTest < ActionController::TestCase
   end
 
   test "Can't lookup a token with a different app id for deleting" do
-    @request.env["X_BUNDLE_IDENTIFIER"] = "net.uberweiss.Unused"
+    @request.env["HTTP_X_BUNDLE_IDENTIFIER"] = "net.uberweiss.Unused"
     assert_raises(ActiveRecord::RecordNotFound) do
       delete :destroy, player_id: @main_player.dgs_user_id, id: @main_device.id
     end

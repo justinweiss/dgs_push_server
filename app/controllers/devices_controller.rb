@@ -46,7 +46,7 @@ class DevicesController < ApplicationController
   end
 
   def load_app
-    @app = Rpush::Apns::App.find_by_name!(request.headers["X_BUNDLE_IDENTIFIER"])
+    @app = Rpush::Apns::App.find_by_name!(request.headers["X-bundle-identifier"])
   end
 
   def verify_app_scope

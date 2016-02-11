@@ -3,7 +3,7 @@ require 'test_helper'
 class ApnsDeviceManagementTest < ActionDispatch::IntegrationTest
 
   setup do
-    @headers = {"X_BUNDLE_IDENTIFIER" => 'net.uberweiss.DGS'}
+    @headers = {"HTTP_X_BUNDLE_IDENTIFIER" => 'net.uberweiss.DGS'}
   end
 
   test "The players controller can't be accessed" do
